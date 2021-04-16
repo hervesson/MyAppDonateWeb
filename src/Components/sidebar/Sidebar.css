@@ -30,6 +30,7 @@
 	font-size: 18px;
 	display: inline;
 	margin-left: 15px;
+	margin-right: 15px;
 }
 
 .sidebar__title > i {
@@ -89,6 +90,11 @@
 	color: #e65061;
 	font-weight: 700;
 	text-transform: uppercase;
+} 
+
+.sidebar__logout > i {
+	margin-right: 10px;
+	font-size: 18px;
 } 
 
 .sidebar-responsive {
