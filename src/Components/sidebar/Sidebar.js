@@ -1,7 +1,16 @@
 import './Sidebar.css';
 import logo from '../../Assets/logo.jpg';
 
-const Sidebar = ({ sidebarOpen, closeSidebar}) => {
+import { connect } from "react-redux";
+
+import { setActiveTab } from "../../Redux/actions";
+
+function Sidebar(props, {sidebarOpen, closeSidebar}){
+
+	const toggleTab = tab => {
+        props.setActiveTab(tab)
+    }
+
 	return (
 		<div className={sidebarOpen ? "sidebar-responsive" : ""} id="sidebar">
 			<div className="sidebar__title">
@@ -17,41 +26,39 @@ const Sidebar = ({ sidebarOpen, closeSidebar}) => {
 					aria-hidden="true"
 				></i>
 			</div>
-			<div className="sidebar__menu">
-				<div className="sidebar__link active_menu_link">
-					<i className="fa fa-manus-square"></i>
-					<a href=""> Home </a>
-				</div>	
+			<div className="sidebar__menu">	
 				<h2> ADMIN </h2>
-				<div className="sidebar__link">
+				<div className="sidebar__link" onClick={() => { toggleTab('dashboard')}}>
 					<i className="fa fa-tachometer"></i>
-					<a href=""> Área administrativa </a>
+					<a href="#"> Dashboard </a>
 				</div>
-				<div className="sidebar__link">
-					<i className="fa fa-building"></i>
-					<a href=""> Entidades </a>
+				<div className="sidebar__link" onClick={() => { toggleTab('conta')}}>
+					<i className="fa fa-user"></i>
+					<a href="#"> Conta </a>
 				</div>
-				<div className="sidebar__link">
-					<i className="fa fa-bars"></i>
-					<a href=""> Produtos </a>
+				<div className="sidebar__link" onClick={() => { toggleTab('agenda')}}>
+					<i className="fa fa-list-alt"></i>
+					<a href="#"> Agenda </a>
 				</div>
-				<div className="sidebar__link">
-					<i className="fa fa-tachometer"></i>
-					<a href=""> Categorias </a>
+				<div className="sidebar__link" onClick={() => { toggleTab('listaDeDoadores')}}>
+					<i className="fa fa-users"></i>
+					<a href="#"> Lista de doadores </a>
 				</div>
-				<div className="sidebar__link">
-					<i className="fa fa-cutlery"></i>
-					<a href=""> Pedidos </a>
+				<div className="sidebar__link" onClick={() => { toggleTab('dadosBancarios')}}>
+					<i className="fa fa-usd"></i>
+					<a href="#"> Dados bancários </a>
 				</div>
 				<div className="sidebar__logout">
 					<i className="fa fa-power-off"></i>
-					<a href=""> log out </a>
+					<a href="#"> log out </a>
 				</div>
 			</div> 
 		</div>
 	)
 }
 
+const mapStatetoProps = state => {
+    return {  };
+};
 
-
-export default Sidebar
+export default connect(mapStatetoProps, { setActiveTab })(Sidebar);
