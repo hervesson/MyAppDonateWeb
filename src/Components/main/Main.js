@@ -1,8 +1,103 @@
+import { useState, useEffect } from "react";
 import hello from "../../Assets/hello.svg";
-import Chart from "../charts/Chart";
+import NumberDoacoes from "../charts/NumberDoacoes";
+import ValorArrecadado from "../charts/ValorArrecadado";
+import NumberCestas from "../charts/NumberCestas";
+import NumberDoadores from "../charts/NumberDoadores";
 import "./Main.css"
 
-const Main = () => {
+function Main(){
+	const [nameComponent, setnameComponent] = useState("")
+	let [activeComponent, setActiveComponent] = useState(
+	 	<div className="charts__left">
+			<div className="charts__left__title">
+				<div>
+					<h1>Número de doações</h1>
+				</div>
+				<i className="fa fa-usd"></i>
+			</div>
+			<NumberDoacoes />
+		</div>
+	); 
+
+	useEffect(() => {
+    	switch (nameComponent) {
+      	case "doações":
+        		setActiveComponent(
+        			<div className="charts__left">
+						<div className="charts__left__title">
+							<div>
+								<h1>Número de doações</h1>
+							</div>
+							<i className="ri-hand-heart-line ri-2x text-lightblue"></i>
+						</div>
+						<NumberDoacoes />
+					</div>
+        		);
+        	break;
+
+      	case "arrecadado":
+        		setActiveComponent(
+        			<div className="charts__left">
+						<div className="charts__left__title">
+							<div>
+								<h1>Valor arrecadado</h1>
+							</div>
+							<i className="ri-money-dollar-box-fill ri-2x text-red"></i>
+						</div>
+						<ValorArrecadado />
+					</div>
+        		);
+        	break;
+
+        	case "cestas":
+        		setActiveComponent(
+        			<div className="charts__left">
+						<div className="charts__left__title">
+							<div>
+								<h1>Número de cestas básicas</h1>
+							</div>
+							<i className="ri-shopping-cart-fill ri-2x text-yellow"></i>
+						</div>
+						<NumberDoacoes />
+					</div>
+        		);
+        	break;
+
+        	case "doadores":
+        		setActiveComponent(
+        			<div className="charts__left">
+						<div className="charts__left__title">
+							<div>
+								<h1>Número de doadores</h1>
+							</div>
+							<i className="ri-team-line ri-2x text-green"></i>
+						</div>
+						<NumberCestas />
+					</div>
+        		);
+        	break;
+
+      	default:
+        		setActiveComponent(
+        			<div className="charts__left">
+						<div className="charts__left__title">
+							<div>
+								<h1>Número de doações</h1>
+							</div>
+							<i className="fa fa-usd"></i>
+						</div>
+						<NumberDoacoes />
+					</div>
+        		);
+        	break;
+    	}
+  	}, [nameComponent]);
+	
+	const toggleTab = tab => {
+      setnameComponent(tab)
+   }
+
 	return(
 		<div className="main">
 			<div className="main__container">
@@ -16,52 +111,44 @@ const Main = () => {
 
 
 				<div className="main__cards">
-					<div className="card">
-						<i className="fa fa-file-text fa-2x text-lightblue"></i>
+					<div className="card" onClick={() => toggleTab("doações")}>
+						<i class="ri-hand-heart-line ri-2x text-lightblue"></i> 
 						<div className="card__inner">
-							<p className="text-primary-p">Número de pedidos</p>
+							<p className="text-primary-p">Número de doações</p>
 							<span className="font-bold text-title">578</span>
 						</div>
 					</div>
 
-					<div className="card">
-						<i className="fa fa-money fa-2x text-red"></i>
+					<div className="card" onClick={() => toggleTab("arrecadado")}>
+						<i className="ri-money-dollar-box-fill ri-2x text-red"></i>
 						<div className="card__inner">
-							<p className="text-primary-p">Pagamentos</p>
+							<p className="text-primary-p">Valor arrecadado</p>
 							<span className="font-bold text-title">R$2.467</span>
 						</div>
 					</div>
 
-					<div className="card">
-						<i className="fa fa-archive fa-2x text-yellow"></i>
+					<div className="card" onClick={() => toggleTab("cestas")}>
+						<i className="ri-shopping-cart-fill ri-2x text-yellow"></i>
 						<div className="card__inner">
-							<p className="text-primary-p">Número de produtos</p>
-							<span className="font-bold text-title">R$2.467</span>
+							<p className="text-primary-p">Número de cestas básicas</p>
+							<span className="font-bold text-title">2.467</span>
 						</div>
 					</div>
 
-					<div className="card">
-						<i className="fa fa-bars fa-2x text-green"></i>
+					<div className="card" onClick={() => toggleTab("doadores")}>
+						<i className="ri-team-line ri-2x text-green"></i>
 						<div className="card__inner">
-							<p className="text-primary-p">Categorias</p>
+							<p className="text-primary-p">Número de doadores</p>
 							<span className="font-bold text-title">40</span>
 						</div>
 					</div>
 				</div>
 
-				<div className="charts">
-					<div className="charts__left">
-						<div className="charts__left__title">
-							<div>
-								<h1>Daily reports</h1>
-								<p>São luis - MA, BR</p>
-							</div>
-							<i className="fa fa-usd"></i>
-						</div>
-						<Chart />
-					</div>
+				<div>
 
-					<div className="charts__right">
+					{activeComponent}
+
+					{/*<div className="charts__right">
 						<div className="charts__right__title">
 							<div>
 								<h1>Daily reports</h1>
@@ -91,8 +178,7 @@ const Main = () => {
 								<p>R$190</p>
 							</div>
 						</div>
-					</div>
-
+					</div>*/}
 				</div>
 			</div>
 		</div>
