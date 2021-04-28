@@ -1,20 +1,11 @@
-import { auth } from "../FirebaseConfig";
+import { auth, firestore } from "../FirebaseConfig";
 
 
 class firebaseAuthServices {
    registerUser = (email, password, username) => {
-      return new Promise((resolve, reject) => {
-         auth.createUserWithEmailAndPassword(email, password).then((user) => {
-            const prov = auth.currentUser
-             prov.updateProfile({
-               displayName: username
-            }).then(function() {
-               reject(auth.currentUser);
-            })  
-            }, (error) => {
-                reject(this._handleError(error));
-            });
-      });
+      auth.createUserWithEmailAndPassword(email, password).then((user) => {
+         firestore.collection('Entidades').doc(user.user.uid).set({Conta:[], Dashboard:[], Agenda:[], ListaDoadores:[], DadosBancarios:[]}) 
+      })
    }
 
     /**

@@ -4,6 +4,11 @@ import Navbar from "../../Components/navbar/Navbar";
 import Sidebar from "../../Components/sidebar/Sidebar";
 import Main from "../../Components/main/Main";
 
+import Conta from "../../Components/itemsMenu/Conta/index";
+import Agenda from "../../Components/itemsMenu/Agenda/index";
+import ListaDeDoadores from "../../Components/itemsMenu/ListaDeDoadores/index";
+import DadosBancarios from "../../Components/itemsMenu/DadosBancarios/index";
+
 import { connect } from "react-redux";
 
 import "./index.css";
@@ -28,19 +33,19 @@ function DashboardAdmin(props) {
         break;
 
       	case "conta":
-        	setActiveComponent(<h1>Conta</h1>);
+        	setActiveComponent(<Conta />);
         break;
 
         case "agenda":
-        	setActiveComponent(<h1>Agenda</h1>);
+        	setActiveComponent(<Agenda />);
         break;
 
         case "listaDeDoadores":
-        	setActiveComponent(<h1>Lista de doadores</h1>);
+        	setActiveComponent(<ListaDeDoadores />);
         break;
 
         case "dadosBancarios":
-        	setActiveComponent(<h1>Dados bancários</h1>);
+        	setActiveComponent(<DadosBancarios />);
         break;
 
       	default:

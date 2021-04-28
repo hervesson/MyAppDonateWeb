@@ -1,13 +1,25 @@
 import { useState, useEffect } from "react";
-import hello from "../../Assets/hello.svg";
+import hello from "../../Assets/hello.png";
 import NumberDoacoes from "../charts/NumberDoacoes";
 import ValorArrecadado from "../charts/ValorArrecadado";
 import NumberCestas from "../charts/NumberCestas";
 import NumberDoadores from "../charts/NumberDoadores";
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import "./Main.css"
 
 function Main(){
 	const [nameComponent, setnameComponent] = useState("")
+	const [dropdownOpen, setDropdownOpen] = useState(false);
+	const [dropdownOpen1, setDropdownOpen1] = useState(false);
+
+	const [ano, setAno] = useState("Mês corrente");
+	const [mes, setMes] = useState("Ano corrente");
+
+  	const toggle = () => setDropdownOpen(prevState => !prevState);
+
+
+  	const toggle1 = () => setDropdownOpen1(prevState => !prevState);
+
 	let [activeComponent, setActiveComponent] = useState(
 	 	<div className="charts__left">
 			<div className="charts__left__title">
@@ -37,78 +49,115 @@ function Main(){
         	break;
 
       	case "arrecadado":
-        		setActiveComponent(
-        			<div className="charts__left">
-						<div className="charts__left__title">
-							<div>
-								<h1>Valor arrecadado</h1>
-							</div>
-							<i className="ri-money-dollar-box-fill ri-2x text-red"></i>
+        	setActiveComponent(
+        		<div className="charts__left">
+					<div className="charts__left__title">
+						<div>
+							<h1>Valor arrecadado</h1>
 						</div>
-						<ValorArrecadado />
+						<i className="ri-money-dollar-box-fill ri-2x text-red"></i>
 					</div>
-        		);
-        	break;
+					<ValorArrecadado />
+				</div>
+        	);
+        break;
 
-        	case "cestas":
-        		setActiveComponent(
-        			<div className="charts__left">
-						<div className="charts__left__title">
-							<div>
-								<h1>Número de cestas básicas</h1>
-							</div>
-							<i className="ri-shopping-cart-fill ri-2x text-yellow"></i>
+        case "cestas":
+        	setActiveComponent(
+        		<div className="charts__left">
+					<div className="charts__left__title">
+						<div>
+							<h1>Número de cestas básicas</h1>
 						</div>
+						<i className="ri-shopping-cart-fill ri-2x text-yellow"></i>
+					</div>
 						<NumberDoacoes />
-					</div>
-        		);
-        	break;
+				</div>
+        	);
+        break;
 
-        	case "doadores":
-        		setActiveComponent(
-        			<div className="charts__left">
-						<div className="charts__left__title">
-							<div>
-								<h1>Número de doadores</h1>
-							</div>
-							<i className="ri-team-line ri-2x text-green"></i>
+        case "doadores":
+        	setActiveComponent(
+        		<div className="charts__left">
+					<div className="charts__left__title">
+						<div>
+							<h1>Número de doadores</h1>
 						</div>
-						<NumberCestas />
+						<i className="ri-team-line ri-2x text-green"></i>
 					</div>
-        		);
-        	break;
+					<NumberCestas />
+				</div>
+        	);
+        break;
 
       	default:
-        		setActiveComponent(
-        			<div className="charts__left">
-						<div className="charts__left__title">
-							<div>
-								<h1>Número de doações</h1>
-							</div>
-							<i className="fa fa-usd"></i>
+        	setActiveComponent(
+        		<div className="charts__left">
+					<div className="charts__left__title">
+						<div>
+							<h1>Número de doações</h1>
 						</div>
-						<NumberDoacoes />
+						<i className="fa fa-usd"></i>
 					</div>
-        		);
-        	break;
+						<NumberDoacoes />
+				</div>
+        	);
+        break;
     	}
   	}, [nameComponent]);
 	
 	const toggleTab = tab => {
-      setnameComponent(tab)
+     	setnameComponent(tab)
    }
 
 	return(
 		<div className="main">
+			<div class="d-flex justify-content-center bg-danger">
+				<h5>Clique em conta no menu lateral e termine seu cadastro</h5>
+			</div>
 			<div className="main__container">
 				<div className="main__title">
 					<img src={hello} alt="hello"></img>
 					<div className="main__greeting">
 						<h1>Olá Hervesson</h1>
 						<p>Bem vindo ao seu painel</p>
-					</div>
+					</div>	
 				</div>
 
+				<div className="d-flex flex-row">
+					<div className="pr-3 pt-3">
+						<Dropdown isOpen={dropdownOpen} toggle={toggle}>
+					      <DropdownToggle caret>
+					        {ano}
+					      </DropdownToggle>
+					      <DropdownMenu>
+					        <DropdownItem onClick={() => setAno("2021")}>2021</DropdownItem>
+					      </DropdownMenu>
+					   </Dropdown>
+					</div>
+
+					<div className="pl-3 pt-3">   
+					   <Dropdown isOpen={dropdownOpen1} toggle={toggle1}>
+					      <DropdownToggle caret>
+					        {mes}
+					      </DropdownToggle>
+					      <DropdownMenu>
+					        <DropdownItem onClick={() => setMes("Janeiro")}>Janeiro</DropdownItem>
+					        <DropdownItem onClick={() => setMes("Fevereiro")}>Fevereiro</DropdownItem>
+					        <DropdownItem onClick={() => setMes("Março")}>Março</DropdownItem>
+					        <DropdownItem onClick={() => setMes("Abril")}>Abril</DropdownItem>
+					        <DropdownItem onClick={() => setMes("Maio")}>Maio</DropdownItem>
+					        <DropdownItem onClick={() => setMes("Junho")}>Junho</DropdownItem>
+					        <DropdownItem onClick={() => setMes("Julho")}>Julho</DropdownItem>
+					        <DropdownItem onClick={() => setMes("Agosto")}>Agosto</DropdownItem>
+					        <DropdownItem onClick={() => setMes("Setembro")}>Setembro</DropdownItem>
+					        <DropdownItem onClick={() => setMes("Outubro")}>Outubro</DropdownItem>
+					        <DropdownItem onClick={() => setMes("Novembro")}>Novembro</DropdownItem>
+					        <DropdownItem onClick={() => setMes("Dezembro")}>Dezembro</DropdownItem>
+					      </DropdownMenu>
+					   </Dropdown>
+					</div>   
+				</div>
 
 				<div className="main__cards">
 					<div className="card" onClick={() => toggleTab("doações")}>

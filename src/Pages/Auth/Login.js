@@ -5,51 +5,46 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { auth } from "../../Services/FirebaseConfig";
 import { firebaseAuthServices } from "../../Services/firebaseAuthServices";
-
+import hello from "../../Assets/hello.png"
 const fireBaseBackend = new firebaseAuthServices();
 
 function Login() {
-    const [stateUser, setStateUser] = useState(false);
 
-    useEffect(() => {
-        auth.onAuthStateChanged((user) => {
-          if (user) {
-             setStateUser(true);
-          } else {
-             setStateUser(false);
-          };
-        })
-    }, [])
-    
-     const formik = useFormik({
-        initialValues: {
-            email: '',
-            password: ''
-        },
-        validationSchema: Yup.object({
-            email: Yup.string().required('Por favor informe seu Email'),
-            password: Yup.string().required('Por favor informe sua Senha')
-        }),
-        onSubmit: values => {
-            //props.loginUser(values.email, values.password, props.history);
-            fireBaseBackend.loginUser( values.email, values.password)
-        },
-    });
+   function tester (){
+      var user = auth.currentUser;
+      console.log(user)
+   }
+
+   const formik = useFormik({
+      initialValues: {
+         email: '',
+         password: ''
+      },
+      validationSchema: Yup.object({
+         email: Yup.string().required('Por favor informe seu Email'),
+         password: Yup.string().required('Por favor informe sua Senha')
+      }),
+      onSubmit: values => {
+         //props.loginUser(values.email, values.password, props.history);
+         fireBaseBackend.loginUser( values.email, values.password)
+      },
+   });
   
 
-    //console.log(stateUser)
 
    
-    return (
+   return (
       <React.Fragment>
-        	<div className="account-pages my-5 pt-sm-5">
+        	<div className="account-pages my-5 pt-sm-1">
             <Container>
                <Row className="justify-content-center">
                   <Col md={8} lg={6} xl={5} >
-                  <div className="text-center mb-4">
-                            <h4>Login</h4>
-                            <p className="text-muted mb-4">Entar</p> 
-                        </div>
+                     <div className="text-center mb-2">
+                        <Link to="/" className="auth-logo mb-2 d-block">
+                           <img src={hello} alt="" height="50" className="logo logo-dark"/>
+                        </Link>
+                        <h4>Login</h4>
+                     </div>
                      <Card>
                         <CardBody className="p-4">
                                         {
@@ -64,7 +59,7 @@ function Login() {
                                             <InputGroup className="mb-3 bg-soft-light input-group-lg rounded-lg">
                                                 <InputGroupAddon addonType="prepend">
                                                     <span className="input-group-text border-light text-muted">
-                                                        <ion-icon name="mail-outline"></ion-icon>
+                                                        <i className="ri-mail-line"></i>
                                                     </span>
                                                 </InputGroupAddon>
                                                 <Input
@@ -86,13 +81,13 @@ function Login() {
 
                                         <FormGroup className="mb-4">
                                             <div className="float-right">
-                                                <Link to="forget-password" className="text-muted font-size-13">Forgot password?</Link>
+                                                <Link to="forget-password" className="text-muted font-size-13">Não lembra da senha ?</Link>
                                             </div>
                                             <Label>Password</Label>
                                             <InputGroup className="mb-3 bg-soft-light input-group-lg rounded-lg">
                                                 <InputGroupAddon addonType="prepend">
                                                     <span className="input-group-text border-light text-muted">
-                                                        <ion-icon name="lock-closed-outline"></ion-icon>
+                                                        <i className="ri-lock-line"></i>
                                                     </span>
                                                 </InputGroupAddon>
                                                 <Input
@@ -126,16 +121,17 @@ function Login() {
                                 </div>
                             </CardBody>
                         </Card>
+                        <button color="primary" onClick={() => tester()}>Tetsra></button>
                          <div className="mt-5 text-center">
                             <p>Ainda não tem uma conta ? <Link to="register" className="font-weight-medium text-primary"> Cadastrar-se </Link> </p>
                             <p>© 2021 My App Donate <i className="mdi mdi-heart text-danger"></i>by Enterprise</p>
                         </div>
-                    </Col>
-                </Row>
+                  </Col>
+               </Row>
             </Container>
-        </div>
-        </React.Fragment>
-    )
+         </div>
+      </React.Fragment>
+   )
 }
 
 export default Login

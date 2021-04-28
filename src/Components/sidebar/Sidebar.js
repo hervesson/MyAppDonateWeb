@@ -1,5 +1,6 @@
 import './Sidebar.css';
 import logo from '../../Assets/logo.jpg';
+import { auth } from "../../Services/FirebaseConfig";
 
 import { connect } from "react-redux";
 
@@ -8,8 +9,13 @@ import { setActiveTab } from "../../Redux/actions";
 function Sidebar(props, {sidebarOpen, closeSidebar}){
 
 	const toggleTab = tab => {
-        props.setActiveTab(tab)
-    }
+      props.setActiveTab(tab)
+   };
+
+   const off = () => {
+   	auth.auth().signOut()
+   }
+   
 
 	return (
 		<div className={sidebarOpen ? "sidebar-responsive" : ""} id="sidebar">
@@ -50,7 +56,7 @@ function Sidebar(props, {sidebarOpen, closeSidebar}){
 				</div>
 				<div className="sidebar__logout">
 					<i className="fa fa-power-off"></i>
-					<a href="#"> log out </a>
+					<a href="#" onClick={() => off}> log out </a>
 				</div>
 			</div> 
 		</div>

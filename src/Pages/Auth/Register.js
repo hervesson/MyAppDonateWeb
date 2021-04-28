@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { Container, Row, Col, Card, CardBody, FormGroup, Alert, Form, Input, Button, FormFeedback, Label, InputGroup, InputGroupAddon } from 'reactstrap';
 import { firebaseAuthServices } from "../../Services/firebaseAuthServices";
 import { Redirect } from 'react-router-dom';
+import hello from "../../Assets/hello.png"
 
 const fireBaseBackend = new firebaseAuthServices();
 
@@ -13,36 +14,31 @@ const Register = (props) => {
 
    const formik = useFormik({
       initialValues: {
-         username: '',
          email: '',
          password: ''
       },
       validationSchema: Yup.object({
-         username: Yup.string().required('Por favor coloque seu Usuário'),
          email: Yup.string().required('Por favor coloque seu Email'),
          password: Yup.string().required('Por favor coloque sua Senha')
       }),
       onSubmit: values => {
-         fireBaseBackend.registerUser(values.email, values.password, values.username);
+         fireBaseBackend.registerUser(values.email, values.password);
       }
    });
    	
-   if (fireBaseBackend.authState()) {
-      return <Redirect to="/dashboardAdmin" />;
-   } 	
 
-   return (
+    return (
       <React.Fragment>
-      <div className="account-pages my-5 pt-sm-5">
+      <div className="account-pages my-5 pt-sm-1">
          <Container>
             <Row className="justify-content-center">
                <Col md={8} lg={6} xl={5}>
-                   <div className="text-center mb-4">
-
-                            <h4>Sign up</h4>
-                            <p className="text-muted mb-4">Cadastre-se agora</p>
-                            
-                        </div>
+                  <div className="text-center mb-4">
+                     <Link to="/" className="auth-logo mb-2 d-block">
+                        <img src={hello} alt="" height="50" className="logo logo-dark"/>
+                     </Link>
+                     <h4>Sign up</h4>  
+                  </div>
 
                         <Card>
                             <CardBody className="p-4">
@@ -61,7 +57,7 @@ const Register = (props) => {
                                             <InputGroup className="mb-3 bg-soft-light input-group-lg rounded-lg">
                                                 <InputGroupAddon addonType="prepend">
                                                     <span className="input-group-text border-light text-muted">
-                                                        <ion-icon name="mail-outline"></ion-icon>
+                                                        <i className="ri-mail-line"></i>
                                                     </span>
                                                 </InputGroupAddon>
                                                 <Input
@@ -80,38 +76,13 @@ const Register = (props) => {
                                                 ) : null}
                                             </InputGroup>
                                         </FormGroup>
-    
-                                        <FormGroup>
-                                            <Label>Usuário</Label>
-                                            <InputGroup className="mb-3 bg-soft-light input-group-lg rounded-lg">
-                                                <InputGroupAddon addonType="prepend">
-                                                    <span className="input-group-text border-light text-muted">
-                                                        <ion-icon name="person-outline"></ion-icon>
-                                                    </span>
-                                                </InputGroupAddon>
-                                                <Input
-                                                    type="text"
-                                                    id="username"
-                                                    name="username"
-                                                    className="form-control bg-soft-light border-light"
-                                                    placeholder="Enter Username"
-                                                    onChange={formik.handleChange}
-                                                    onBlur={formik.handleBlur}
-                                                    value={formik.values.username}
-                                                    invalid={formik.touched.username && formik.errors.username ? true : false}
-                                                />
-                                                {formik.touched.username && formik.errors.username ? (
-                                                    <FormFeedback type="invalid">{formik.errors.username}</FormFeedback>
-                                                ) : null}
-                                            </InputGroup>
-                                        </FormGroup>
 
                                         <FormGroup className="mb-4">
                                             <Label>Senha</Label>
                                             <InputGroup className="mb-3 bg-soft-light input-group-lg rounded-lg">
                                                 <InputGroupAddon addonType="prepend">
                                                     <span className="input-group-text border-light text-muted">
-                                                        <ion-icon name="lock-closed-outline"></ion-icon>
+                                                        <i className="ri-lock-line"></i>
                                                     </span>
                                                 </InputGroupAddon>
                                                 <Input
