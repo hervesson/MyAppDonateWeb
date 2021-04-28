@@ -14,7 +14,6 @@ function Conta (props){
    const [dropdownOpen1, setDropdownOpen1] = useState(false);
    const [lastClicked, setLastClicked] = useState("Selecione o banco");
    const [tipoPix, settipoPix] = useState("Tipo de Pix");
-   const [vazio, setVazio] = useState(false)
 
    const toggle = () => setDropdownOpen(prevState => !prevState);
    const toggle1 = () => setDropdownOpen1(prevState => !prevState);
@@ -41,9 +40,6 @@ function Conta (props){
          pix: Yup.string().required('Por favor informe numero do pix'),
       }),
       onSubmit: values => {
-         if(lastClicked || tipoPix ==){
-
-         }
          props.setDadosBancarios(values.banco, values.conta, values.digito, values.pix, values.tipoPix)
          //fireBaseBackend.gravarEvento( values.Rua, values.Bairro,  values.Numero)
       },
@@ -94,9 +90,6 @@ function Conta (props){
                                 {renderItems()}
                               </DropdownMenu>
                            </Dropdown>
-                           {vazio ? (
-                              <p className={"fs-6 text-danger"}>Essa informção é essencial</p>
-                           ) : null}
                         </FormGroup>
                      </Col>
                      <Col md={3}>
@@ -149,9 +142,6 @@ function Conta (props){
                                 <DropdownItem value="Numero de telefone" label="Numero de telefone" onClick={() => settipoPix("Numero de telefone")}>Numero de telefone</DropdownItem>
                               </DropdownMenu>
                            </Dropdown>
-                           {vazio ? (
-                              <p className={"fs-6 text-danger"}>Essa informção não pode ficar em branco</p>
-                           ) : null}
                         </FormGroup>
                      </Col>
                      <Col md={4}>
